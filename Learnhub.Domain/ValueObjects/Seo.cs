@@ -37,7 +37,6 @@ namespace Learnhub.Domain.ValueObjects
         public Seo GetSeoFormat()
         {
             Slug = Slugify(Slug);
-
             return new Seo(Slug, Keywords, MetaDescription);
         }
 

@@ -11,6 +11,7 @@ namespace Learnhub.Domain.Common
         public BaseEntity()
         {
             CreateDateTime = DateTime.Now;
+            IsActive = true;
         }
         public TKey Id{ get; set; }
 
@@ -18,7 +19,7 @@ namespace Learnhub.Domain.Common
         public bool IsActive { get; set; }
 
         public DateTime CreateDateTime { get; set; }
-        public DateTime ModifiedDateTime { get; set; }
+        public DateTime? ModifiedDateTime { get; set; }
 
     }
 }

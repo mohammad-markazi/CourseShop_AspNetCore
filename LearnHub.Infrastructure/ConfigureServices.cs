@@ -15,9 +15,10 @@ namespace LearnHub.Infrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             services.AddDbContext<ApplicationDbContext>(option =>
             {
-                option.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                option.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
                     builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
 
             });

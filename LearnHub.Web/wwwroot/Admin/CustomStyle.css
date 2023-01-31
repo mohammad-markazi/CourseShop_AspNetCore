@@ -1,0 +1,11 @@
+﻿@font-face {
+    font-family: myFirstFont;
+    src: url(assets/fonts/Farsi-Digits/Samim-FD.woff);
+    font-weight: bold;
+}
+
+
+body {
+    font-family: myFirstFont
+}
+

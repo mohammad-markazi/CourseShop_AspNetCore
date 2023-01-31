@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="CourseCategory\Query\" />
   </ItemGroup>
 
@@ -18,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Learnhub.Domain\Learnhub.Domain.csproj" />
+    <ProjectReference Include="..\LearnHub.Infrastructure\LearnHub.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,6 +21,10 @@ namespace Learnhub.Domain.Entities.Course
 
         public List<CourseCategory> Children { get; set; }
 
+        public CourseCategory()
+        {
+            
+        }
         public CourseCategory(string name, Seo seo, int? parentId)
         {
             Name = name;
