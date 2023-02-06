@@ -16,7 +16,7 @@ namespace LearnHub.Application.CourseCategory.Query
     public class GetCourseCategoryAdminQuery
     {
 
-        public class  CourseCategoryQueryParams:Paginate<Learnhub.Domain.Entities.Course.CourseCategory>,IRequest<BaseResponse<List<CourseCategoryViewModel>>>
+        public class  CourseCategoryQueryParams:PageRequest,IRequest<Page<CourseCategoryViewModel>>
         {
             public string Name { get; set; }
 
@@ -24,7 +24,7 @@ namespace LearnHub.Application.CourseCategory.Query
         }
 
 
-        public class  Handler:IRequestHandler<CourseCategoryQueryParams,BaseResponse<List<CourseCategoryViewModel>>>
+        public class  Handler:IRequestHandler<CourseCategoryQueryParams, Page<CourseCategoryViewModel>>
         {
             private readonly IApplicationDbContext _context;
 
@@ -33,30 +33,28 @@ namespace LearnHub.Application.CourseCategory.Query
                 _context = context;
             }
 
-            public async Task<BaseResponse<List<CourseCategoryViewModel>>> Handle(CourseCategoryQueryParams request, CancellationToken cancellationToken)
+            public async Task<Page<CourseCategoryViewModel>> Handle(CourseCategoryQueryParams request, CancellationToken cancellationToken)
             {
-                var response = new BaseResponse<List<CourseCategoryViewModel>>();
                 var courseCategories = _context.CourseCategories.Include(x=>x.Children).AsNoTracking();
                 if (!string.IsNullOrEmpty(request.Name))
                     courseCategories = courseCategories.Where(x => x.Name.Contains(request.Name));
 
-                courseCategories =request.GetPaginated(courseCategories);
-
-
-                response.Data= await courseCategories.OrderByDescending(x => x.Id).Select(x => new CourseCategoryViewModel()
+                var result = await courseCategories.OrderByDescending(x => x.Id).Select(x => new CourseCategoryViewModel()
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Seo = x.Seo,
                     CourseCount = x.CourseCount,
                     ParentId = x.ParentId,
-                    SubCourseCategoriesName = x.Children.Select(x=>x.Name).ToList()
+                    SubCourseCategoriesName = x.Children.Select(x => x.Name).ToList()
                 }).ToListAsync(cancellationToken);
 
-                response.PageCount= (response.Data.Count / request.Count) + 1;
+
+                var courseCategoriesResult = result.Page(request.Index, 10);
 
 
-                return response;
+
+                return courseCategoriesResult;
             }
         }
 

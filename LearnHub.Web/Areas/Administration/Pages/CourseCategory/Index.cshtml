@@ -68,7 +68,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model.CourseCategories)
+                @foreach (var item in Model.CourseCategories.Items)
                 {
                     <tr class="footable-even" style="">
                         <td>@item.Name</td>
@@ -84,7 +84,7 @@
                             </ul>
                         </td>
                         <td>
-                            <a  class="btn waves-effect waves-light btn-warning text-white" asp-page="./Edit">ویرایش</a>
+                            <a  class="btn waves-effect waves-light btn-warning text-white" asp-page="./Edit" asp-route-id="@item.Id">ویرایش</a>
                         </td>
                     </tr>
                 }
@@ -103,7 +103,7 @@
                                     
                                     
 
-                                    @for (int i = 1; i <= @Model.PageCount; i++)
+                                    @for (int i = 1; i < @Model.CourseCategories.Count; i++)
                                     {
 
                                         <li class="footable-page active page-item">

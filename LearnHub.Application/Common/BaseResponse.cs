@@ -8,9 +8,9 @@ namespace LearnHub.Application.Common
 {
     public class BaseResponse<T>
     {
-        public int PageCount { get; set; }
+        public bool IsSuccess { get; set; }
 
-        public int Current { get; set; }
+        public string ErrorMessage { get; set; }
 
         public T Data { get; set; }
     }

@@ -17,34 +17,26 @@ namespace LearnHub.Web.Areas.Administration.Pages.CourseCategory
             _mediator = mediator;
         }
 
-        public int PageCount { get; set; }
-        public List<CourseCategoryViewModel> CourseCategories { get; set; } = default!;
+        public Page<GetCourseCategoryAdminQuery.CourseCategoryViewModel> CourseCategories { get; set; } = default!;
         public async Task OnGet(CourseCategoryQuery query)
         {
             var result =await _mediator.Send(new GetCourseCategoryAdminQuery.CourseCategoryQueryParams()
             {
                 Name = query.Name,
-                Current = query.Current,
+                Index = query.Index,
             });
 
-            CourseCategories = result.Data.Adapt<List<CourseCategoryViewModel>>();
-            PageCount = result.PageCount;
+            CourseCategories = result;
+
+
+
         }
     }
 
-    public class CourseCategoryQuery : Paginate<CourseCategoryViewModel>
+    public class CourseCategoryQuery : PageRequest
     {
         public string Name { get; set; }
     }
 
-    public class CourseCategoryViewModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int CourseCount { get; set; }
-        public Seo Seo { get; set; }
-        public int? ParentId { get; set; }
-        public List<string> SubCourseCategoriesName { get; set; }
-
-    }
+   
 }
