@@ -14,6 +14,10 @@ namespace Learnhub.Domain.ValueObjects
         public string Keywords { get; private set; }
         public string MetaDescription { get; private set; }
 
+        public Seo()
+        {
+            
+        }
         public Seo(string slug, string keywords, string metaDescription)
         {
             if(string.IsNullOrEmpty(slug))

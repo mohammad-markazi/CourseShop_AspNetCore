@@ -1,18 +1,15 @@
-using LearnHub.Application.CourseCategory.Query;
 using LearnHub.Infrastructure;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
 using LearnHub.Application;
+using LearnHub.Application.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddMediatR(typeof(Program));
 builder.Services.AddApplicationServices();
-
+MappingConfiguration.Config();
 
 var app = builder.Build();
 
@@ -33,4 +30,5 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapAreaControllerRoute("default", "Administration", "{controller=Home}/{action=Index}/{id?}");
+
 app.Run();

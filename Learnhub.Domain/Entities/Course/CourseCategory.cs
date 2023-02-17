@@ -32,6 +32,12 @@ namespace Learnhub.Domain.Entities.Course
             Seo=seo;
         }
 
+        public void Edit(string name, Seo seo, int? parentId)
+        {
+            Name = name;
+            ParentId = parentId;
+            Seo = seo;
+        }
 
         public void SetCourseCount() => CourseCount=0;
 

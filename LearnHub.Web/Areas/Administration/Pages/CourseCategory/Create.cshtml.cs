@@ -2,6 +2,7 @@
 using LearnHub.Application.CourseCategory.Command.Create;
 using LearnHub.Application.CourseCategory.Query;
 using Learnhub.Domain.ValueObjects;
+using LearnHub.Web.Areas.Administration.Pages.CourseCategory.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -44,19 +45,5 @@ namespace LearnHub.Web.Areas.Administration.Pages.CourseCategory
         }
     }
 
-    public class CourseCategoryInput
-    {
-        [Required(ErrorMessage = "این فیلد الزامی میباشد")]
-        public string Name { get; set; }
-        [Required(ErrorMessage = "این فیلد الزامی میباشد")]
-
-        public string Slug { get;  set; }
-        [Required(ErrorMessage = "این فیلد الزامی میباشد")]
-        public string Keywords { get;  set; }
-        [Required(ErrorMessage = "این فیلد الزامی میباشد")]
-        public string MetaDescription { get;  set; }
-
-        public int? ParentId { get; set; }
     
-    }
 }

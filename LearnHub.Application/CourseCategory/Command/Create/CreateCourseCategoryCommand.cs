@@ -16,7 +16,6 @@ namespace LearnHub.Application.CourseCategory.Command.Create
         public class  Request:IRequest<Unit>    
         {
             public string Name { get;  set; }
-            public int CourseCount { get;  set; }
             public Seo Seo { get;  set; }
             public int? ParentId { get; set; }
         }

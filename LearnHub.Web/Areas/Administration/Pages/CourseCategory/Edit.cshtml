@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id}"
 @model LearnHub.Web.Areas.Administration.Pages.CourseCategory.EditModel
 @{
 }
@@ -59,35 +59,36 @@
         <div class="row">
             <div class="col-sm-12 col-xs-12">
                 <form id="formCategory" method="post">
+                    <input type="hidden" value="@Model.CourseCategory.Data.Id"asp-for="CourseCategory.Data.Id" />
                     <div class="form-group">
                         <label for="exampleInputEmail111">نام</label>
-                        <input type="text" class="form-control"  asp-for="CourseCategory.Data.Name"  placeholder="لطفا نام دسته بندی را وارد نمایید">
-                        
+                        <input type="text" class="form-control" asp-for="CourseCategory.Data.Name" placeholder="لطفا نام دسته بندی را وارد نمایید">
+
                         <span class="text-danger" asp-validation-for="CourseCategory.Data.Name"></span>
-                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="exampleInputEmail12">اسلاگ</label>
-                        <input type="text" class="form-control" asp-for="CourseCategory.Data.Seo.Slug" id="exampleInputEmail12" placeholder="لطفا اسلاگ دسته بندی را وارد نمایید">
+                        <input type="text" class="form-control" asp-for="CourseCategory.Data.Slug" id="exampleInputEmail12" placeholder="لطفا اسلاگ دسته بندی را وارد نمایید">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword11">توضیح کوتاه</label>
-                        <textarea class="form-control" id="exampleInputPassword11" asp-for="CourseCategory.Data.Seo.MetaDescription" placeholder="لطفا توضیح کوتاه را وارد نمایید"></textarea>
+                        <textarea class="form-control" id="exampleInputPassword11" asp-for="CourseCategory.Data.MetaDescription" placeholder="لطفا توضیح کوتاه را وارد نمایید"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword12">کلمات کلیدی</label>
                         <div class="text-secondary m-2">لطفا برای تایید کلمه کلیدی از کلید enter استفاده کنید</div>
                         <div class="multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
-                            <input type="text"  id="keywords" onkeyup="multiSearchKeyup(this)">
-                            <input type="hidden" asp-for="CourseCategory.Data.Seo.Keywords" id="inputKeywords" />
+                            <input type="text" id="keywords" onkeyup="multiSearchKeyup(this)">
+                            <input type="hidden" asp-for="CourseCategory.Data.Keywords" id="inputKeywords"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>زیر گروه</label>
                         <div class="text-secondary m-2">در صورتی که سر گروه میباشد این بخش را خالی بگذارید</div>
                         <select class="custom-select mr-sm-2" asp-for="CourseCategory.Data.ParentId" asp-items="@Model.Categories" id="inlineFormCustomSelect">
-                                <option selected="">...</option>
-                            </select>
-                        </div>
+                            <option selected="">...</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-success m-r-10">ثبت</button>
                     <button type="submit" class="btn btn-dark">برگشت</button>
                 </form>
@@ -98,6 +99,12 @@
 
 @section Scripts
 {
+    @if (TempData["Notification"] != null)
+    {
+        <script>
+            @TempData["Notification"]
+        </script>
+    }
     <script src="~/Admin/assets/libs/select2/dist/js/select2.full.min.js"></script>
     <script src="~/Admin/assets/libs/select2/dist/js/select2.min.js"></script>
     <script src="~/Admin/dist/js/pages/forms/select2/select2.init.js"></script>
@@ -125,6 +132,8 @@
         inputElement.parentNode
             .insertBefore(createFilterItem(inputElement.value), inputElement)
             ;
+                let periviosValues = document.querySelector("#inputKeywords").value;
+                document.querySelector("#inputKeywords").value = periviosValues + text + "-";
         inputElement.value = "";
     }
    
@@ -135,8 +144,7 @@
             const span = `<span>${text}</span>`;
             const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
             item.innerHTML = span + close;
-            let periviosValues = document.querySelector("#inputKeywords").value;
-            document.querySelector("#inputKeywords").value = periviosValues + text + "-";
+          
             return item;
         }
     

@@ -12,7 +12,7 @@
     <link href="~/Admin/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="~/Admin/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="~/Admin/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-  
+    <link href="~/Admin/assets/libs/sweetalert2/dist/sweetalert2.min.js" rel="stylesheet">
     <link href="~/Admin/dist/css/style.min.css" rel="stylesheet">
     @await RenderSectionAsync("Styles",false)
 
@@ -737,7 +737,16 @@
 <script src="~/Admin/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
 <script src="~/Admin/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
 <script src="~/Admin/dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="~/Admin/assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="~/Admin/assets/libs/sweetalert2/sweet-alert.init.js"></script>
 </body>
 <partial name="_ValidationScriptsPartial"/>
 @await RenderSectionAsync("Scripts",false)
+
+<script>
+    @if (TempData["notification"] != null)
+    {
+        @Html.Raw(TempData["notification"])
+    }
+</script>
 </html>

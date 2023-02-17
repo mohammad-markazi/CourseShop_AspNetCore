@@ -1,3 +1,8 @@
 ﻿
-let periviosValues = document.querySelector("#inputKeywords").value;
-document.querySelector("#inputKeywords").value = periviosValues+
+document.addEventListener("DOMContentLoaded", function () {
+    let items = "";
+
+    items.split("-")
+});
+
+document.querySelector("#").value;
