@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LearnHub.Application.Common;
+using LearnHub.Application.Common.Interfaces;
 using Learnhub.Domain.ValueObjects;
-using LearnHub.Infrastructure.Persistence;
 using Mapster;
 using MediatR;
 
