@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using LearnHub.Application.Common.Interfaces;
+using LearnHub.Application.Common.Pagination;
+using Learnhub.Domain.Enums;
 using LearnHub.Infrastructure.Identity;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
@@ -22,9 +24,9 @@ namespace LearnHub.Infrastructure.Persistence.Configuration.Identity
 		    _userManager = userManager;
 	    }
 
-	    public async Task CreateUserAsync(string firstName, string lastName, string phoneNumber, string username, int type,string description)
+	    public async Task CreateUserAsync(string firstName, string lastName, string phoneNumber, string username, UserType type,string email)
 	    {
-		 var result=  await _userManager.CreateAsync(new User(username,firstName,lastName,description,(UserType)type),username);
+		 var result=  await _userManager.CreateAsync(new User(username,phoneNumber,firstName,lastName,type,email));
 		 if (!result.Succeeded)
 		 {
 			 
@@ -34,11 +36,16 @@ namespace LearnHub.Infrastructure.Persistence.Configuration.Identity
 
 	    }
 
-	    public async Task<List<UserViewModel>> GetUsers()
-	    {
-		    var users =await _userManager.Users.ProjectToType<UserViewModel>().ToListAsync();
+      
 
-		    return users;
+        public async Task<Page<UserViewModel>> GetUsers(PageRequest request)
+	    {
+		    var users =await _userManager.Users.ToListAsync();
+			var userMap=users.Adapt<List<UserViewModel>>();
+          var userResult= userMap.Page(request.Index,20);
+
+
+		    return userResult;
 	    }
     }
 }

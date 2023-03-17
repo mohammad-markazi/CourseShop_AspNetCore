@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Learnhub.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace LearnHub.Infrastructure.Identity
@@ -22,20 +23,16 @@ namespace LearnHub.Infrastructure.Identity
         {
 	        
         }
-        public User(string username,string firstName, string lastName, string description, UserType type)
+        public User(string username,string phoneNumber,string firstName, string lastName, UserType type,string email)
         {
 	        FirstName = firstName;
 	        LastName = lastName;
-	        Description = description;
 	        Type = type;
             UserName=username;
+            PhoneNumber = phoneNumber;
+            Email=email;
         }
     }
 
-    public enum UserType
-    {
-        Student,
-        Teacher,
-        Admin
-    }
+   
 }

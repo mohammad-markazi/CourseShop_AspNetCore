@@ -1,0 +1,108 @@
+﻿@page
+@model LearnHub.Web.Areas.Administration.Pages.Users.CreateModel
+@{
+}
+
+
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="~/Admin/assets/libs/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Admin/dist/css/style.min.css">
+
+    <style
+    >
+        .multi-search-filter{
+            border:1px solid #DDD;
+            border-radius: 3px;
+            padding:3px;
+            min-height: 26px;
+        }
+        .multi-search-filter > input {
+            border: 0px;
+            outline: none;
+            font-size: 20px;
+        }
+        .multi-search-item {
+            margin: 2px;
+            padding: 2px 24px 2px 8px;
+            float: left;
+            display: flex;
+            background-color: rgb(204, 204, 204);
+            color: rgb(51, 51, 51);
+            border-radius: 3px;
+            position: relative;
+        }
+        .multi-search-item > span {
+            font-family: 'Muli';
+            line-height: 18px;
+        }
+        .multi-search-item > .fa {
+            font-size: 12px;
+            line-height: 18px;
+            margin-left: 8px;
+            position: absolute;
+            right: 8px;
+            top: 2px;
+        }
+
+        .input-validation-error {
+            border-color: red !important;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+}
+
+<div class="col-12">
+    <div class="card card-body">
+        <h4 class="card-title">افزودن کاربر  جدید</h4>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <form id="formCategory" method="post">
+                    <div class="form-group">
+                        <label for="firstName">نام</label>
+                        <input type="text" class="form-control"  asp-for="Input.FirstName">
+                    </div>
+                    <div class="form-group">
+                        <label>نام خانوادگی</label>
+                        <input type="text" class="form-control" asp-for="Input.LastName">
+                    </div>
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" class="form-control" asp-for="Input.Email" >
+                    </div>
+                    <div class="form-group">
+                        <label>نام کاربری</label>
+                        <input type="text" class="form-control" asp-for="Input.Username">
+                        <span class="text-danger" asp-validation-for="Input.Username"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label>شماره موبایل</label>
+                        <input type="tel" class="form-control" asp-for="Input.PhoneNumber" >
+                        <span class="text-danger" asp-validation-for="Input.PhoneNumber"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>نوع کاربر</label>
+                        <select class="custom-select mr-sm-2" asp-for="Input.UserType">
+                            <option selected="" value="0">دانشجو</option>
+                            <option  value="1">استاد</option>
+                            <option  value="2">مدیر</option>
+
+                            </select>
+                        </div>
+                    <button type="submit" class="btn btn-success m-r-10">ثبت</button>
+                    <button type="submit" class="btn btn-dark">برگشت</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Admin/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/Admin/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/Admin/dist/js/pages/forms/select2/select2.init.js"></script>
+}

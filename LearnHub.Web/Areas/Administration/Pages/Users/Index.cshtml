@@ -1,0 +1,79 @@
+﻿@page
+@using Learnhub.Domain.Enums
+@model LearnHub.Web.Areas.Administration.Pages.Users.IndexModel
+@{
+}
+<div class="card">
+
+    <div class="card-body">
+        <h2 class="card-title">لیست کاربران</h2>
+        <a type="button" class="btn waves-effect waves-light btn-info" asp-page="/Users/Create">افزودن</a>
+        <div class="table-responsive">
+           <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list footable-loaded footable" data-page-size="10">
+                <thead>
+                    <tr>
+                        <th class="footable-sortable">نام<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">نام خانوادگی<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">نام کاربری<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">شماره تلفن<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">ایمیل<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">نوع کاربر<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">عملیات<span class="footable-sort-indicator"></span></th>
+
+                        </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Users.Items)
+                    {
+                        <tr class="footable-even" style="">
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.UserName</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Email</td>
+
+                            <td>
+                              @item.Type
+                            </td>
+
+                            <td>
+                                <a class="btn waves-effect waves-light btn-warning text-white" asp-page="./Edit" asp-route-id="@item.Id">ویرایش</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="footable-visible">
+                            <div class="text-right">
+                                <ul class="pagination pagination-split m-t-30">
+                                    @* <li class="footable-page-arrow disabled page-item">
+                                    <a data-page="first" href="#first" class="page-link">«</a>
+                                    </li><li class="footable-page-arrow disabled page-item">
+                                    <a data-page="prev" href="#prev" class="page-link">‹</a>
+                                    </li>*@
+
+
+
+                                    @for (int i = 1; i < @Model.Users.Items.Count(); i++)
+                                    {
+
+                                        <li class="footable-page active page-item">
+                                            <a data-page="0" href="?Current=@i" class="page-link">@i</a>
+                                        </li>
+
+                                    }
+
+
+                                    @* <li class="footable-page-arrow page-item"><a data-page="next" href="#next" class="page-link">›</a></li>
+                                    <li class="footable-page-arrow page-item"><a data-page="last" href="#last" class="page-link">»</a></li>*@
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using Azure;
 
 namespace LearnHub.Application.Common.Pagination
 {

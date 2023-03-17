@@ -1,10 +1,6 @@
 ﻿using Learnhub.Domain.ValueObjects;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LearnHub.Application.Common.Interfaces;
 using Learnhub.Domain.Exceptions;
 
 namespace LearnHub.Application.CourseCategory.Command.Edit

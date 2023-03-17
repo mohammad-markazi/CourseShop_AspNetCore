@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace LearnHub.Infrastructure.Persistence.Configuration.Identity
 {
+	public class PersianIdentityErrorResponse
+	{
+		public string Description { get; set; }
+	}
 	public class PersianIdentityErrorDescriber : IdentityErrorDescriber
 	{
 		public override IdentityError DuplicateEmail(string email)

@@ -20,11 +20,13 @@ namespace Learnhub.Domain.Entities.Course
         public CourseCategory Parent { get; set; }
 
         public List<CourseCategory> Children { get; set; }
-
+        public List<Course> Courses { get; set; }
         public CourseCategory()
         {
             
         }
+
+      
         public CourseCategory(string name, Seo seo, int? parentId)
         {
             Name = name;
@@ -39,7 +41,12 @@ namespace Learnhub.Domain.Entities.Course
             Seo = seo;
         }
 
-        public void SetCourseCount() => CourseCount=0;
+        public void AddCourse(Course course)
+        {
+	        this.Courses ??= new List<Course>();
+	        this.Courses.Add(course);
+        }
+		public void SetCourseCount() => CourseCount=0;
 
     }
 }
