@@ -32,6 +32,18 @@ namespace LearnHub.Infrastructure.Identity
             PhoneNumber = phoneNumber;
             Email=email;
         }
+
+        public void Edit(string username, string phoneNumber, string firstName, string lastName, UserType type, string email)
+        {
+            if(string.IsNullOrEmpty(username))
+                throw new ArgumentNullException(nameof(UserName));
+	        FirstName = firstName;
+	        LastName = lastName;
+	        Type = type;
+	        UserName = username;
+	        PhoneNumber = phoneNumber;
+	        Email = email;
+		}
     }
 
    

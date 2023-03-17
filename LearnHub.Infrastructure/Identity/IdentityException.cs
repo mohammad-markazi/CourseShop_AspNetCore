@@ -16,9 +16,10 @@ namespace LearnHub.Infrastructure.Identity
 			get;
 			set;
 		}
-		public IdentityException()
+		public IdentityException(string message)
 		{
-			var errorMessage = JsonConvert.DeserializeObject<List<PersianIdentityErrorResponse>>(Message);
+
+			var errorMessage = JsonConvert.DeserializeObject<List<PersianIdentityErrorResponse>>(message);
 
 			ErrorMessage = string.Join("\n", errorMessage.Select(x => x.Description).ToList());
 

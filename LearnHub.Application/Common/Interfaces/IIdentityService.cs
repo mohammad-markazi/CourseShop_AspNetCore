@@ -11,9 +11,11 @@ namespace LearnHub.Application.Common.Interfaces
     public interface IIdentityService
     {
 	    Task CreateUserAsync(string firstName, string lastName, string phoneNumber, string username, UserType type,string email);
+	    Task EditUserAsync(Guid id,string firstName, string lastName, string phoneNumber, string username, UserType type, string email);
 
+		Task<UserViewModel> GetUserByIdAsync(Guid id);
 
-	    Task<Page<UserViewModel>> GetUsers(PageRequest request);
+		Task<Page<UserViewModel>> GetUsers(PageRequest request);
 
 
     }
@@ -25,7 +27,8 @@ namespace LearnHub.Application.Common.Interfaces
 	    public string PhoneNumber { get; set; }
 	    public string FirstName { get; set; }
 	    public string LastName { get; set; }
-	    public string Type { get;  set; }
+	    public string TypeName { get;  set; }
+		public UserType Type { get; set; }
         public string? Email { get; set; }
     }
 }

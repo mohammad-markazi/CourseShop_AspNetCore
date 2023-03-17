@@ -15,7 +15,7 @@ builder.Services.AddMediatR(typeof(Program));
 builder.Services.AddApplicationServices();
 MappingConfiguration.Config();
 
-TypeAdapterConfig<User, UserViewModel>.NewConfig().Map(x => x.Type, y => y.Type.GetDisplayName());
+TypeAdapterConfig<User, UserViewModel>.NewConfig().Map(x => x.TypeName, y => y.Type.GetDisplayName());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

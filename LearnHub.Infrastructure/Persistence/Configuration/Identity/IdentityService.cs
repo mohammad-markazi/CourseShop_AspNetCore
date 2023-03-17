@@ -31,14 +31,33 @@ namespace LearnHub.Infrastructure.Persistence.Configuration.Identity
 		 {
 			 
 			 var ErrorJson = JsonConvert.SerializeObject(result.Errors.ToList());
-			 throw new ApplicationException(ErrorJson);
+			 throw new IdentityException(ErrorJson);
 		 }
 
 	    }
 
-      
+	    public async Task EditUserAsync(Guid id,string firstName, string lastName, string phoneNumber, string username, UserType type, string email)
+	    {
+		    var user =await _userManager.FindByIdAsync(id.ToString());
+		    if (user is null)
+			    throw new IdentityException("کاربر یافت نشد");
 
-        public async Task<Page<UserViewModel>> GetUsers(PageRequest request)
+			user.Edit(username, phoneNumber, firstName, lastName, type,email);
+		await	_userManager.UpdateAsync(user);
+	    }
+
+	    public async  Task<UserViewModel> GetUserByIdAsync(Guid id)
+	    {
+			var user = await _userManager.FindByIdAsync(id.ToString());
+			if (user is null)
+				throw new IdentityException("کاربر یافت نشد");
+
+			var userViewModel=user.Adapt<UserViewModel>();
+			return userViewModel;
+	    }
+
+
+	    public async Task<Page<UserViewModel>> GetUsers(PageRequest request)
 	    {
 		    var users =await _userManager.Users.ToListAsync();
 			var userMap=users.Adapt<List<UserViewModel>>();
