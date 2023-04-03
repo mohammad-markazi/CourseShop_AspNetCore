@@ -39,7 +39,7 @@ namespace LearnHub.Application.CourseCategory.Query
                 if (!string.IsNullOrEmpty(request.Name))
                     courseCategories = courseCategories.Where(x => x.Name.Contains(request.Name));
 
-                var result = await courseCategories.OrderByDescending(x => x.Id).Select(x => new CourseCategoryViewModel()
+                var result =  courseCategories.OrderByDescending(x => x.Id).Select(x => new CourseCategoryViewModel()
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -47,14 +47,10 @@ namespace LearnHub.Application.CourseCategory.Query
                     CourseCount = x.CourseCount,
                     ParentId = x.ParentId,
                     SubCourseCategoriesName = x.Children.Select(x => x.Name).ToList()
-                }).ToListAsync(cancellationToken);
+                }).Page(request.Index,10);
 
 
-                var courseCategoriesResult = result.Page(request.Index, 10);
-
-
-
-                return courseCategoriesResult;
+                return result;
             }
         }
 

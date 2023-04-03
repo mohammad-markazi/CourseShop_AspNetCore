@@ -1,0 +1,127 @@
+﻿@page "{handler?}"
+@model LearnHub.Web.Areas.Administration.Pages.Course.CreateModel
+@{
+}
+
+@section Styles
+    {
+    <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+
+}
+
+<div class="col-12">
+    <div class="card card-body">
+        <h4 class="card-title">افزودن دوره</h4>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <form id="formCategory" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail111">عنوان</label>
+                        <input type="text" class="form-control" asp-for="Input.Title" placeholder="لطفا  عنوان دوره  را وارد نمایید">
+
+                        <span class="text-danger" asp-validation-for="Input.Title"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail12">مبلغ</label>
+                        <input type="number" class="form-control" asp-for="Input.Price" placeholder="لطفا مبلغ را وارد نمایید">
+                        <span class="text-danger" asp-validation-for="Input.Price"></span>
+
+                        </div>
+                    <div class="form-group">
+                        <label>قرار دادن روی سایت</label>
+                        <input type="checkbox" class="form-control" style="width: max-content;display: inline-block" asp-for="Input.Published" id="exampleInputEmail12">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail12">اسلاگ</label>
+                        <input type="text" class="form-control" asp-for="Input.Seo.Slug" placeholder="لطفا اسلاگ  را وارد نمایید">
+                        <span class="text-danger" asp-validation-for="Input.Seo.Slug"></span>
+
+                        </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword11">توضیح کوتاه</label>
+                        <textarea class="form-control" id="exampleInputPassword11" asp-for="Input.Seo.MetaDescription" placeholder="لطفا توضیح کوتاه را وارد نمایید"></textarea>
+                        <span class="text-danger" asp-validation-for="Input.Seo.MetaDescription"></span>
+
+                        </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword12">کلمات کلیدی</label>
+                        <div class="text-secondary m-2">لطفا برای تایید کلمه کلیدی از کلید enter استفاده کنید</div>
+                        <div class="multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
+                            <input type="text" id="keywords" onkeyup="multiSearchKeyup(this)">
+                            <input type="hidden" asp-for="Input.Seo.Keywords" id="inputKeywords"/>
+                            <span class="text-danger" asp-validation-for="Input.Seo.Keywords"></span>
+
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label>استاد دوره</label>
+                        <select class="custom-select mr-sm-2" asp-for="Input.TeacherId" asp-items='new SelectList(Model.Teachers, "Key", "Value")' id="inlineFormCustomSelect">
+                            <option selected="">...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>گروه دوره</label>
+                        <select class="custom-select mr-sm-2" asp-for="Input.CategoryId" asp-items='@Model.Categories' id="inlineFormCustomSelect">
+                            <option selected="">...</option>
+                        </select>
+                    </div>
+                    <div class="form-group m-3">
+                        <label>توضیحات دوره</label>
+                        <textarea asp-for="Input.Description" id="editor"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success m-r-10">ثبت</button>
+                    <button type="submit" class="btn btn-dark">برگشت</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                language: 'fa',
+                ckfinder: { uploadUrl: 'https://localhost:7236/Administration/Course/Create/UploadFile' }
+            })
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script src="~/Admin/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/Admin/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="~/Admin/dist/js/pages/forms/select2/select2.init.js"></script>
+    <script>
+
+        $('#keywords').keypress(function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                //do something
+            }
+        });
+        function multiSearchKeyup(inputElement) {
+            if (event.keyCode === 13) {
+                inputElement.parentNode
+                    .insertBefore(createFilterItem(inputElement.value), inputElement)
+                    ;
+                inputElement.value = "";
+            }
+            function createFilterItem(text) {
+                const item = document.createElement("div");
+                item.setAttribute("class", "multi-search-item");
+                const span = `<span>${text}</span>`;
+                const close = `<div class="fa fa-close" onclick="this.parentNode.remove()"></div>`;
+                item.innerHTML = span + close;
+                let periviosValues = document.querySelector("#inputKeywords").value;
+                document.querySelector("#inputKeywords").value = periviosValues + text + "-";
+                return item;
+            }
+        }
+    </script>
+}

@@ -25,7 +25,10 @@ namespace LearnHub.Web.Areas.Administration.Pages.CourseCategory
         public SelectList Categories { get; set; }
         public async Task OnGet()
         {
-           var result= await _mediator.Send(new GetCourseCategorySelectListQuery.GetProductsQuery());
+           var result= await _mediator.Send(new GetCourseCategorySelectListQuery.Request()
+           {
+               IsFindAllCategory = false
+           });
 
            Categories = new SelectList(result, "Id", "Name");
 

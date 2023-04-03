@@ -16,6 +16,7 @@ namespace LearnHub.Application.Common.Interfaces
 		Task<UserViewModel> GetUserByIdAsync(Guid id);
 
 		Task<Page<UserViewModel>> GetUsers(PageRequest request);
+        Task<Dictionary<Guid,string>> GetTeachers();
 
 
     }

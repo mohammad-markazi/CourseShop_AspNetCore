@@ -59,12 +59,24 @@ namespace LearnHub.Infrastructure.Persistence.Configuration.Identity
 
 	    public async Task<Page<UserViewModel>> GetUsers(PageRequest request)
 	    {
-		    var users =await _userManager.Users.ToListAsync();
-			var userMap=users.Adapt<List<UserViewModel>>();
-          var userResult= userMap.Page(request.Index,20);
-
-
-		    return userResult;
+		    var users = _userManager.Users.Select(x=> new UserViewModel()
+            {
+				UserName = x.UserName,
+				FirstName = x.FirstName,
+				LastName = x.LastName,
+				Type = x.Type,
+				Email = x.Email,
+				TypeName = x.Type.GetDisplayName(),
+				PhoneNumber = x.PhoneNumber,
+				Id = x.Id
+            }).Page(request.Index,20);
+            return users;
 	    }
+
+        public async  Task<Dictionary<Guid, string>> GetTeachers()
+        { 
+            return await _userManager.Users.Where(x => x.Type == UserType.Teacher).Select(x => new { x.Id,Name=($"{x.FirstName} {x.LastName}") }).ToDictionaryAsync(x=>x.Id,x=>x.Name);
+            
+        }
     }
 }

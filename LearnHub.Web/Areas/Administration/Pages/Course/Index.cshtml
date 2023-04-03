@@ -1,0 +1,86 @@
+﻿@page
+@model LearnHub.Web.Areas.Administration.Pages.Course.IndexModel
+@{
+}
+
+
+
+<div class="card">
+
+    <div class="card-body">
+        <h2 class="card-title">لیست دوره ها</h2>
+        <a type="button" class="btn waves-effect waves-light btn-info" asp-page="/Course/Create">افزودن</a>
+        <div class="table-responsive">
+            <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list footable-loaded footable" data-page-size="10">
+                <thead>
+                    <tr>
+                        <th class="footable-sortable">عنوان<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">تعداد شرکت کننده<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">پابلیش شده<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">نام مدرس<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">نام گروه<span class="footable-sort-indicator"></span></th>
+                        <th class="footable-sortable">عملیات<span class="footable-sort-indicator"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CourseViewModel.Items)
+                    {
+                        <tr class="footable-even" style="">
+                            <td>@item.Title</td>
+                            <td>@item.CountParticipant</td>
+                            <td>
+                                @if (item.Published)
+                                {
+                                    <span><i class="fas fa-plus"></i></span>
+                                }
+                                else
+                                {
+                                    <span><i class="fas fa-minus"></i></span>
+
+                                }
+                            </td>
+                            <td>@item.TeacherName</td>
+                            <td>@item.CategoryName</td>
+
+
+                            <td>
+                                <a class="btn waves-effect waves-light btn-warning text-white" asp-page="./Edit" asp-route-id="@item.Id">ویرایش</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="footable-visible">
+                            <div class="text-right">
+                                <ul class="pagination pagination-split m-t-30">
+                                    @* <li class="footable-page-arrow disabled page-item">
+                                    <a data-page="first" href="#first" class="page-link">«</a>
+                                    </li><li class="footable-page-arrow disabled page-item">
+                                    <a data-page="prev" href="#prev" class="page-link">‹</a>
+                                    </li>*@
+
+
+
+                                    @for (int i = 1; i < @Model.CourseViewModel.Count; i++)
+                                    {
+
+                                        <li class="footable-page active page-item">
+                                            <a data-page="0" href="?Current=@i" class="page-link">@i</a>
+                                        </li>
+
+                                    }
+
+
+                                    @* <li class="footable-page-arrow page-item"><a data-page="next" href="#next" class="page-link">›</a></li>
+                                    <li class="footable-page-arrow page-item"><a data-page="last" href="#last" class="page-link">»</a></li>*@
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

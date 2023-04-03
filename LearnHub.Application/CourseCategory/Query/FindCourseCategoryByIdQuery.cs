@@ -48,13 +48,13 @@ namespace LearnHub.Application.CourseCategory.Query
         }
         public class CourseCategoryViewModel
         {
+
             public int Id { get; set; }
             public string Name { get; set; }
             public int? ParentId { get; set; }
-            public string Slug { get;  set; }
-            public string Keywords { get;  set; }
-            public string MetaDescription { get; set; }
+            public Seo Seo { get; set; }
         }
+
 
     }
 }

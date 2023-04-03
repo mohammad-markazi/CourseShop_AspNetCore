@@ -39,7 +39,10 @@ namespace LearnHub.Web.Areas.Administration.Pages.CourseCategory
                 
                  return NotFound();
              }
-             var result = await _mediator.Send(new GetCourseCategorySelectListQuery.GetProductsQuery());
+             var result = await _mediator.Send(new GetCourseCategorySelectListQuery.Request()
+             {
+                 IsFindAllCategory = false
+             });
 
              Categories = new SelectList(result, "Id", "Name");
             return Page();
@@ -52,8 +55,7 @@ namespace LearnHub.Web.Areas.Administration.Pages.CourseCategory
                 await _mediator.Send(new EditCourseCategoryCommand.Request()
                 {
                     Id = CourseCategory.Data.Id,
-                    Seo = new Seo(CourseCategory.Data.Slug, CourseCategory.Data.Keywords,
-                        CourseCategory.Data.MetaDescription),
+                    Seo = CourseCategory.Data.Seo,
                     Name = CourseCategory.Data.Name,
                     ParentId = CourseCategory.Data.ParentId,
                 });

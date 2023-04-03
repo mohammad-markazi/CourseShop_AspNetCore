@@ -7,15 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using LearnHub.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using static LearnHub.Application.CourseCategory.Query.GetCourseCategoryAdminQuery;
 
 namespace LearnHub.Application.CourseCategory.Query
 {
     public class GetCourseCategorySelectListQuery
     {
-        public record GetProductsQuery() : IRequest<List<CourseCategoryViewModel>>;
+        public class Request : IRequest<List<CourseCategoryViewModel>>
+        {
+            public bool IsFindAllCategory { get; set; }
+        }
 
-        public class Handler : IRequestHandler<GetProductsQuery, List<CourseCategoryViewModel>>
+        public class Handler : IRequestHandler<Request, List<CourseCategoryViewModel>>
         {
             private readonly IApplicationDbContext _context;
 
@@ -25,11 +27,15 @@ namespace LearnHub.Application.CourseCategory.Query
             }
 
 
-            public async Task<List<CourseCategoryViewModel>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+            public async Task<List<CourseCategoryViewModel>> Handle(Request request, CancellationToken cancellationToken)
             {
-                var courseCategories = _context.CourseCategories.Where(x=>x.ParentId==null).AsNoTracking();
-     
+                var courseCategories = _context.CourseCategories.AsNoTracking();
 
+                if (!request.IsFindAllCategory)
+                {
+                     courseCategories = _context.CourseCategories.Where(x => x.ParentId == null).AsNoTracking();
+
+                }
                 return await courseCategories.OrderByDescending(x => x.Id).Select(x => new CourseCategoryViewModel()
                 {
                     Id = x.Id,

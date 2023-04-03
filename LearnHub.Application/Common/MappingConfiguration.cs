@@ -15,10 +15,10 @@ namespace LearnHub.Application.Common
         public static void Config()
         {
 
-            TypeAdapterConfig<Learnhub.Domain.Entities.Course.CourseCategory, FindCourseCategoryByIdQuery.CourseCategoryViewModel>.NewConfig()
-                .Map(dest => dest.Slug, src => src.Seo.Slug)
-                .Map(dest => dest.Keywords, src => src.Seo.Keywords)
-                .Map(dest => dest.MetaDescription, src => src.Seo.MetaDescription);
+            //TypeAdapterConfig<Learnhub.Domain.Entities.Course.CourseCategory, FindCourseCategoryByIdQuery.CourseCategoryViewModel>.NewConfig()
+            //    .Map(dest => dest.Slug, src => src.Seo.Slug)
+            //    .Map(dest => dest.Keywords, src => src.Seo.Keywords)
+            //    .Map(dest => dest.MetaDescription, src => src.Seo.MetaDescription);
 
             TypeAdapterConfig<UserType, string>.NewConfig().Map(x => x, y => y.GetDisplayName());
 

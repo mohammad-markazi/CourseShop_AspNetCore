@@ -4,39 +4,7 @@ namespace LearnHub.Application.Common.Pagination
 {
     public static class Extend
     {
-        public static Page<TModel> Page<TModel>(this IEnumerable<TModel> query)
-        {
-            return Page(query, Defaults.Index, Defaults.PageLength);
-        }
-
-        public static Page<TModel> Page<TModel>(this IEnumerable<TModel> query, PageRequest pageRequest)
-        {
-            return Page(query, pageRequest.Index, pageRequest.Length);
-        }
-
-        public static Page<TModel> Page<TModel>(this IEnumerable<TModel> query, int index)
-        {
-            return Page(query, index, Defaults.PageLength);
-        }
-
-        public static Page<TModel> Page<TModel>(this IEnumerable<TModel> query, int index, int pageLength)
-        {
-            int count = 0;
-            IEnumerable<TModel> q;
-
-            count = query.Count();
-            q = query.Skip((index - 1) * pageLength)
-                .Take(pageLength);
-
-            return new Page<TModel>()
-            {
-                Index = index,
-                Length = pageLength,
-                Count = count,
-                Items = q
-            };
-        }
-
+   
         public static Page<TModel> Page<TModel, TKey>(this IQueryable<TModel> query, Expression<Func<TModel, TKey>> orderBy)
         {
             return Page(query, orderBy, Defaults.Index, Defaults.PageLength);

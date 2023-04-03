@@ -15,7 +15,7 @@ namespace LearnHub.Infrastructure.Persistence
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         }
 
@@ -27,5 +27,7 @@ namespace LearnHub.Infrastructure.Persistence
         }
 
         public DbSet<CourseCategory> CourseCategories => Set<CourseCategory>();
+        public DbSet<Course> Courses => Set<Course>();
+        public DbSet<CourseEpisode> CourseEpisodes => Set<CourseEpisode>();
     }
 }

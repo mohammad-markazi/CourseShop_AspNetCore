@@ -68,18 +68,18 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail12">اسلاگ</label>
-                        <input type="text" class="form-control" asp-for="CourseCategory.Data.Slug" id="exampleInputEmail12" placeholder="لطفا اسلاگ دسته بندی را وارد نمایید">
+                        <input type="text" class="form-control" asp-for="CourseCategory.Data.Seo.Slug" id="exampleInputEmail12" placeholder="لطفا اسلاگ دسته بندی را وارد نمایید">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword11">توضیح کوتاه</label>
-                        <textarea class="form-control" id="exampleInputPassword11" asp-for="CourseCategory.Data.MetaDescription" placeholder="لطفا توضیح کوتاه را وارد نمایید"></textarea>
+                        <textarea class="form-control" id="exampleInputPassword11" asp-for="CourseCategory.Data.Seo.MetaDescription" placeholder="لطفا توضیح کوتاه را وارد نمایید"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword12">کلمات کلیدی</label>
                         <div class="text-secondary m-2">لطفا برای تایید کلمه کلیدی از کلید enter استفاده کنید</div>
                         <div class="multi-search-filter" onclick="Array.from(this.children).find(n=>n.tagName==='INPUT').focus()">
                             <input type="text" id="keywords" onkeyup="multiSearchKeyup(this)">
-                            <input type="hidden" asp-for="CourseCategory.Data.Keywords" id="inputKeywords"/>
+                            <input type="hidden" asp-for="CourseCategory.Data.Seo.Keywords" id="inputKeywords" />
                         </div>
                     </div>
                     <div class="form-group">

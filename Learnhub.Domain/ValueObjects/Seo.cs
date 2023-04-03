@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -10,9 +12,15 @@ namespace Learnhub.Domain.ValueObjects
 {
     public class Seo:ValueObject
     {
-        public string Slug { get; private set; }
-        public string Keywords { get; private set; }
-        public string MetaDescription { get; private set; }
+        [Required(ErrorMessage = "این فیلد الزامی میباشد")]
+
+        public string Slug { get;  set; }
+        [Required(ErrorMessage = "این فیلد الزامی میباشد")]
+
+        public string Keywords { get;  set; }
+        [Required(ErrorMessage = "این فیلد الزامی میباشد")]
+
+        public string MetaDescription { get;  set; }
 
         public Seo()
         {
