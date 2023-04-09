@@ -44,7 +44,7 @@ namespace LearnHub.Web
             if (!string.IsNullOrWhiteSpace(pathFile))
             {
                 pathFile = pathFile.Replace("/", "\\");
-                var pathFilePhysics = Path.Combine(_webHostEnvironment.WebRootPath, "Files", pathFile);
+                var pathFilePhysics = Path.Combine(_webHostEnvironment.WebRootPath, pathFile);
                 if (File.Exists(pathFilePhysics))
                     File.Delete(pathFilePhysics);
             }

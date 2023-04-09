@@ -15,7 +15,9 @@ namespace Learnhub.Domain.Entities.Course
 		public string Title { get; private set; }
 		public string Description { get; private set; }
 		public int CountParticipant { get;private set; }
-		public Level Level { get; private set; }
+        public string Image { get; private set; }
+
+        public Level Level { get; private set; }
 		public long Price { get;private set; }
 		public Guid TeacherId { get; private set; }
 		public int CategoryId { get; private set; }
@@ -27,7 +29,7 @@ namespace Learnhub.Domain.Entities.Course
 		public List<CourseEpisode> CourseEpisodes { get; set; }
 		public Course(){}
 
-		public Course(string title, string description, Level level, long price, Guid teacherId, int categoryId, bool published,Seo seo)
+		public Course(string title, string description, Level level, long price, Guid teacherId, int categoryId, bool published,Seo seo,string image)
 		{
 			if(string.IsNullOrEmpty(title))
 				throw new ArgumentNullException(nameof(title));
@@ -41,8 +43,26 @@ namespace Learnhub.Domain.Entities.Course
 			CategoryId = categoryId;
 			Published = published;
             Seo = seo;
+			Image=image;
         }
 
+        public void Edit(string title, string description, Level level, long price, Guid teacherId, int categoryId,
+            bool published, Seo seo, string image)
+        {
+            if (string.IsNullOrEmpty(title))
+                throw new ArgumentNullException(nameof(title));
+
+            if (price < 0) throw new ArgumentOutOfRangeException(nameof(price));
+            Title = title;
+            Description = description;
+            Level = level;
+            Price = price;
+            TeacherId = teacherId;
+            CategoryId = categoryId;
+            Published = published;
+            Seo = seo;
+            Image = image;
+        }
 		public void AddEpisode(CourseEpisode episode)
 		{
 			this.CourseEpisodes??= new List<CourseEpisode>();

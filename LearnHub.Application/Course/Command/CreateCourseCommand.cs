@@ -10,6 +10,7 @@ using Learnhub.Domain.Entities.Course;
 using Learnhub.Domain.ValueObjects;
 using LearnHub.Application.Course.Query;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace LearnHub.Application.Course.Command
 {
@@ -23,17 +24,20 @@ namespace LearnHub.Application.Course.Command
         class Handler : IRequestHandler<Request, Unit>
         {
             private readonly IApplicationDbContext _context;
-
-            public Handler(IApplicationDbContext context)
+            private readonly IFileUploader _fileUploader;
+            public Handler(IApplicationDbContext context, IFileUploader fileUploader)
             {
                 _context = context;
+                _fileUploader = fileUploader;
             }
 
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
+                var fileResult = _fileUploader.Upload(request.Input.Image, "CourseImages");
+
                 var course = new Learnhub.Domain.Entities.Course.Course(request.Input.Title, request.Input.Description,
                     request.Input.Level, request.Input.Price, request.Input.TeacherId, request.Input.CategoryId,
-                    request.Input.Published,request.Input.Seo);
+                    request.Input.Published,request.Input.Seo,fileResult.Path);
                await _context.Courses.AddAsync(course,cancellationToken);
               await _context.SaveChangesAsync(cancellationToken);
               return Unit.Value;
@@ -57,6 +61,7 @@ namespace LearnHub.Application.Course.Command
         [Required(ErrorMessage = "این فیلد الزامی میباشد")]
         public int CategoryId { get;  set; }
         public bool Published { get;  set; }
+        public IFormFile Image { get; set; }
         public Seo Seo { get; set; }
     }
 }
